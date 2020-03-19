@@ -26,7 +26,6 @@ from mycroft.util.log import LOG
 from mycroft.util.parse import normalize
 from mycroft.metrics import report_timing, Stopwatch
 from mycroft.skills.padatious_service import PadatiousService
-from mycroft_bus_client import MessageBusClient, Message
 from .intent_service_interface import open_intent_envelope
 
 
