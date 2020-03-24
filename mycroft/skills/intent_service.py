@@ -226,7 +226,6 @@ class IntentService:
     def do_converse(self, utterances, skill_id, lang, message, user_id=None):
         converse_msg = (message.reply("skill.converse.request", {
             "skill_id": skill_id, "utterances": utterances, "lang": lang}))
-        LOG.info("le converse message : "+str(converse_msg.serialize()))
         result = self.bus.wait_for_response(converse_msg,
                                             'skill.converse.response')
         if result and 'error' in result.data:
@@ -272,17 +271,6 @@ class IntentService:
                 self.context_manager.inject_context(context_entity)
             elif context_entity['data'][0][1] in self.context_keywords:
                 self.context_manager.inject_context(context_entity)
-
-    def find_expected_response(self):
-        LOG.info('Setting up client to connect to a local mycroft instance')
-        client = MessageBusClient()
-
-        def find_dialog(message):
-            if 'user_waiting' in message.data:
-                LOG.info("en voici un : "+str(message.data.get))
-
-        client.on('speak', find_dialog())
-        client.run_forever()
 
     def send_metrics(self, intent, context, stopwatch):
         """
@@ -408,17 +396,12 @@ class IntentService:
         Returns:
             bool: True if converse handled it, False if  no skill processes it
         """
-        LOG.info("infor interessante du message envoyé : "+str(message.serialize()))
-        # check for conversation time-out
-        for asi in self.active_skills:
-            LOG.info(str(asi))
         self.active_skills = [skill for skill in self.active_skills
                               if time.time() - skill[
                                   1] <= self.converse_timeout * 60]
 
         # check if any skill wants to handle utterance
         for skill in self.active_skills:
-            LOG.info("voici pour un skill le skill2 : "+str(skill[2])+" et le userid : "+str(userid))
             if skill[2] == userid:
                 if self.do_converse(utterances, skill[0], lang, message):
                     # update timestamp, or there will be a timeout where

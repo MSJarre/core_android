@@ -35,8 +35,6 @@ class MessageBusEventHandler(WebSocketHandler):
         self.emitter.on(event_name, handler)
 
     def on_message(self, message):
-        LOG.info("voici le message : "+str(message))
-        LOG.debug(message)
         try:
             deserialized_message = Message.deserialize(message)
         except Exception:

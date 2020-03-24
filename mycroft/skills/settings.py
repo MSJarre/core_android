@@ -248,7 +248,7 @@ class SettingsMetaUploader:
 
                 self._update_settings_meta()
                 LOG.debug('Uploading settings meta for ' + self.skill_gid)
-                synced = self._issue_api_call()
+                synced = True
             else:
                 LOG.debug('settingsmeta.json not uploaded - no identity')
         else:

@@ -329,7 +329,6 @@ class MycroftSkill:
         """
 
         event = Event()
-        LOG.info("c'est pour maintenant ")
 
         def converse(utterances, lang=None):
             converse.response = utterances[0] if utterances else None
