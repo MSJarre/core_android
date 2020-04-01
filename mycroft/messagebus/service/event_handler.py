@@ -27,6 +27,7 @@ client_connections = []
 
 
 class MessageBusEventHandler(WebSocketHandler):
+
     def __init__(self, application, request, **kwargs):
         super().__init__(application, request, **kwargs)
         self.emitter = EventEmitter()
@@ -35,6 +36,7 @@ class MessageBusEventHandler(WebSocketHandler):
         self.emitter.on(event_name, handler)
 
     def on_message(self, message):
+        LOG.info("le message reçu : "+str(message))
         try:
             deserialized_message = Message.deserialize(message)
         except Exception:
@@ -66,4 +68,14 @@ class MessageBusEventHandler(WebSocketHandler):
             self.write_message(json.dumps(channel_message))
 
     def check_origin(self, origin):
-        return True
+        # TODO: Find in Ekylibre DB if received token is acceptable
+        dico_token = {"demo.ekylibre.io": "itsToken", "dummy.dev.ekyviti.farm": "itsToken"}
+        # Allow ws connection if host requested it to launch Mycroft
+        if self.request.headers.get("host") == "0.0.0.0:8181" and origin == "http://0.0.0.0:8181":
+            return True
+        # If header contains a 'farm' parameter -> we compare it to it's token & accept/deny
+        farm = self.request.headers.get("farm")
+        if farm is not None:
+            if dico_token[farm] == origin:
+                return True
+        return False
