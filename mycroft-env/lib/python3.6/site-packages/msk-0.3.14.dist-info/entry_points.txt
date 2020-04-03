@@ -1,0 +1,3 @@
+[console_scripts]
+msk = msk.__main__:main
+

@@ -17,8 +17,6 @@ import re
 import inspect
 from mycroft.util.parse import normalize
 from copy import deepcopy
-from mycroft.util.log import LOG
-
 
 class Message:
     """Holds and manipulates data sent over the websocket

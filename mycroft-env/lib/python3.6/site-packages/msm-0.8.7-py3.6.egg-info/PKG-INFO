@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: msm
+Version: 0.8.7
+Summary: Mycroft Skills Manager
+Home-page: https://github.com/MycroftAI/mycroft-skills-manager
+Author: jarbasAI, Matthew Scholefield, Mycroft AI
+Author-email: jarbasai@mailfence.com, matthew331199@gmail.com, dev@mycroft.ai
+License: Apache-2.0
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.5

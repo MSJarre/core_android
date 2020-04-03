@@ -1,0 +1,12 @@
+#!/home/manuel/Desktop/core_android/mycroft-env/bin/python3
+# EASY-INSTALL-ENTRY-SCRIPT: 'msm==0.8.7','console_scripts','msm'
+__requires__ = 'msm==0.8.7'
+import re
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(
+        load_entry_point('msm==0.8.7', 'console_scripts', 'msm')()
+    )
