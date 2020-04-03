@@ -340,7 +340,7 @@ class IntentService:
                     for utt in combined:
                         _intent = PadatiousService.instance.calc_intent(utt)
                         if 'EkylibreSkill' in str(_intent.name):
-                            _intent.name = _intent.name.replace("EkylibreSkill", user_id)
+                            _intent.name = _intent.name.replace("EkylibreSkill", user_id.replace(".","_"))
                         if _intent:
                             best = padatious_intent.conf if padatious_intent else 0.0
                             if best < _intent.conf:
