@@ -1,4 +1,4 @@
-six==1.13.0
+lsix==1.13.0
 requests==2.20.0
 gTTS==2.0.4
 PyAudio==0.2.11
@@ -30,3 +30,5 @@ fann2==1.0.7
 padaos==0.1.9
 precise-runner==0.2.1
 petact==0.1.2
+sklearn_crfsuite
+rasa_nlu
