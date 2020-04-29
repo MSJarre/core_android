@@ -66,7 +66,7 @@ class MessageBusEventHandler(WebSocketHandler):
             self.write_message(json.dumps(channel_message))
 
     def check_origin(self, origin):
-        
+
         db_connect = psycopg2.connect(database="Duke", user="postgres", host="db", password="12345678")
         cursor = db_connect.cursor()
         if self.request.headers.get("host") == "0.0.0.0:8181" and origin == "http://0.0.0.0:8181":
@@ -76,7 +76,7 @@ class MessageBusEventHandler(WebSocketHandler):
         if farm is not None:
             all_proc_query = """ SELECT token from users where users.farm = '%s'""" % farm
             cursor.execute(all_proc_query)
-            token = cursor.fetchall()[0]
+            token = cursor.fetchall()[0][0]
             print("le token : "+str(token))
             if token == origin:
                 return True
