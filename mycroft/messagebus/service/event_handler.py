@@ -77,7 +77,6 @@ class MessageBusEventHandler(WebSocketHandler):
             all_proc_query = """ SELECT token from users where users.farm = '%s'""" % farm
             cursor.execute(all_proc_query)
             token = cursor.fetchall()[0][0]
-            print("le token : "+str(token))
             if token == origin:
                 return True
         return False
