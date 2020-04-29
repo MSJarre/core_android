@@ -16,6 +16,7 @@
 import json
 import sys
 import traceback
+import psycopg2
 
 from tornado.websocket import WebSocketHandler
 from pyee import EventEmitter
@@ -65,14 +66,18 @@ class MessageBusEventHandler(WebSocketHandler):
             self.write_message(json.dumps(channel_message))
 
     def check_origin(self, origin):
-        # TODO: Find in Ekylibre DB if received token is acceptable
-        dico_token = {"demo.ekylibre.io": "itsToken", "dummy.dev.ekyviti.farm": "itsToken"}
-        # Allow ws connection if host requested it to launch Mycroft
+        
+        db_connect = psycopg2.connect(database="Duke", user="postgres", host="db", password="12345678")
+        cursor = db_connect.cursor()
         if self.request.headers.get("host") == "0.0.0.0:8181" and origin == "http://0.0.0.0:8181":
             return True
         # If header contains a 'farm' parameter -> we compare it to it's token & accept/deny
         farm = self.request.headers.get("farm")
         if farm is not None:
-            if dico_token[farm] == origin:
+            all_proc_query = """ SELECT token from users where users.farm = '%s'""" % farm
+            cursor.execute(all_proc_query)
+            token = cursor.fetchall()[0]
+            print("le token : "+str(token))
+            if token == origin:
                 return True
         return False
