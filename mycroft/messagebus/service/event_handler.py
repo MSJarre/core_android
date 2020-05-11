@@ -74,7 +74,7 @@ class MessageBusEventHandler(WebSocketHandler):
         # If header contains a 'farm' parameter -> we compare it to it's token & accept/deny
         farm = self.request.headers.get("farm")
         if farm is not None:
-            all_proc_query = """ SELECT token from users where users.farm = '%s'""" % farm
+            all_proc_query = """ SELECT token from users where users.eff_farm = '%s'""" % farm.replace(".","_")
             cursor.execute(all_proc_query)
             token = cursor.fetchall()[0][0]
             if token == origin:
