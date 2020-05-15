@@ -171,7 +171,6 @@ function check-dependencies() {
                 # Generate a desktop notification (ArchLinux)
                 notify-send "Mycroft Dependencies Outdated" "Run ./dev_setup.sh again"
             fi
-            exit 1
         fi
     fi
 }
