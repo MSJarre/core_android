@@ -68,7 +68,7 @@ function end-process() {
 
         if process-running $1 ; then
             echo "failed to stop."
-            pid=$( pgrep -o -f "python3 (.*)-m mycroft.*${1}" )            
+            pid=$( pgrep -o -f "python3 (.*)-m mycroft.*${1}" )
             echo -n "  Killing $1 (${pid})..."
             kill -9 ${pid}
             echo "killed."
@@ -94,11 +94,11 @@ case ${OPT} in
         ;&
     "")
         echo "Stopping all mycroft-core services"
-        end-process messagebus.service
         end-process skills
         end-process audio
         end-process speech
         end-process enclosure
+        end-process messagebus.service
         ;;
     "bus")
         end-process messagebus.service

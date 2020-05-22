@@ -22,12 +22,12 @@ from tornado.websocket import WebSocketHandler
 from pyee import EventEmitter
 
 from mycroft.messagebus.message import Message
+from mycroft.util.log import LOG
 
 client_connections = []
 
 
 class MessageBusEventHandler(WebSocketHandler):
-
     def __init__(self, application, request, **kwargs):
         super().__init__(application, request, **kwargs)
         self.emitter = EventEmitter()
@@ -45,6 +45,7 @@ class MessageBusEventHandler(WebSocketHandler):
             self.emitter.emit(deserialized_message.msg_type,
                               deserialized_message)
         except Exception as e:
+            LOG.exception(e)
             traceback.print_exc(file=sys.stdout)
             pass
 
