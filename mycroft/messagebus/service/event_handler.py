@@ -67,7 +67,7 @@ class MessageBusEventHandler(WebSocketHandler):
             self.write_message(json.dumps(channel_message))
 
     def check_origin(self, origin):
-
+        return True
         db_connect = psycopg2.connect(database="Duke", user="postgres", host="db", password="12345678")
         cursor = db_connect.cursor()
         LOG.info("voici le header : " + str(self.request.headers))
