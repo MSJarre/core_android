@@ -70,11 +70,12 @@ class MessageBusEventHandler(WebSocketHandler):
 
         db_connect = psycopg2.connect(database="Duke", user="postgres", host="db", password="12345678")
         cursor = db_connect.cursor()
+        LOG.info("voici le header : " + str(self.request.headers))
         if self.request.headers.get("host") == "0.0.0.0:8181" and origin == "http://0.0.0.0:8181":
             return True
         # If header contains a 'farm' parameter -> we compare it to it's token & accept/deny
         farm = self.request.headers.get("farm")
-        if farm is not None:
+        if farm:
             all_proc_query = """ SELECT token from users where users.eff_farm = '%s'""" % farm.replace(".","_")
             cursor.execute(all_proc_query)
             token = cursor.fetchall()[0][0]
