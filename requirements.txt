@@ -19,7 +19,7 @@ pychromecast==3.2.2
 python-vlc==1.1.2
 google-api-python-client==1.6.4
 fasteners==0.14.1
-PyYAML==5.1.2
+PyYAML==5.4
 
 lingua-franca==0.2.1
 msm==0.8.7
